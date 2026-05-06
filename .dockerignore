@@ -1,0 +1,7 @@
+**/.git
+cms-react
+**/node_modules
+**/dist
+**/public/content
+.env
+*.log

@@ -1,0 +1,24 @@
+services:
+  banking-domain-cms:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        CMS_REPO_URL: ${CMS_REPO_URL:-https://github.com/tinitiateprime/tintiate-docker-cms.git}
+        CMS_REPO_BRANCH: ${CMS_REPO_BRANCH:-main}
+        CONTENT_REPO_URL: ${CONTENT_REPO_URL:-https://github.com/tinitiateprime/tinitiate-data-appliance.git}
+        CONTENT_REPO_BRANCH: ${CONTENT_REPO_BRANCH:-main}
+        CONTENT_REPO_SUBDIR: ${CONTENT_REPO_SUBDIR:-banking-domain}
+    image: banking-domain-cms:latest
+    container_name: banking-domain-cms
+    environment:
+      APP_PORT: ${APP_PORT:-4300}
+      CONTENT_REPO: ${CONTENT_REPO:-tinitiateprime/tinitiate-data-appliance}
+      CONTENT_BRANCH: ${CONTENT_BRANCH:-main}
+      CONTENT_SOURCE_DIR: ${CONTENT_SOURCE_DIR:-banking-domain}
+      CONTENT_DEST_DIR: ${CONTENT_DEST_DIR:-public/content}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+    ports:
+      - "${APP_PORT:-4300}:${APP_PORT:-4300}"
+    restart: unless-stopped
+
