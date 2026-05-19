@@ -20,3 +20,4 @@ from banking_data_model import generate_records, RECORD_COUNT
 ## Notes
 - The record schema includes customer, account, and branch fields.
 - The generated data is suitable for CSV, JSON, XML, Parquet, PostgreSQL inserts, and DynamoDB put operations.
+

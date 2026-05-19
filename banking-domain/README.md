@@ -13,6 +13,7 @@ These files explain the big ideas in banking. Each one focuses on a different to
 - **[Home Loans Data Model](banking_home_loans.md)**: Dive into home loans – how banks decide who gets a mortgage and how they track payments.
 - **[IT Projects in the Banking Domain](banking_it_projects.md)**: Discover the tech side! See examples of projects that improve banking systems.
 - **[Integration and Teaching Guidance](banking_teaching_guidance.md)**: Tips on how to connect different banking systems and guidance for teachers on explaining these concepts.
+- **[Mermaid Flowchart Shapes Reference](banking_mermaid_shapes.md)**: See the supported diagram shapes, what each one means, and how to use them in banking workflows.
 
 ## Python Script Documentation
 These are special computer programs (scripts) written in Python that help create sample banking data. They're like tools for practicing. Each script has its own guide:

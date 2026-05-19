@@ -21,6 +21,8 @@ RUN git clone --depth 1 --branch "${CMS_REPO_BRANCH}" "${CMS_REPO_URL}" . \
 
 RUN npm ci
 
+COPY .cms-overrides/ ./
+
 RUN git clone --depth 1 --branch "${CONTENT_REPO_BRANCH}" "${CONTENT_REPO_URL}" /tmp/content-repo \
     && cp -R "/tmp/content-repo/${CONTENT_REPO_SUBDIR}" "./${CONTENT_SOURCE_DIR}" \
     && rm -rf /tmp/content-repo
@@ -30,5 +32,4 @@ RUN npm run build:local
 EXPOSE 4300
 
 CMD ["npm", "run", "dev:local"]
-
 
