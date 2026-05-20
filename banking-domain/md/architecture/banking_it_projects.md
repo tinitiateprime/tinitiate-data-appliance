@@ -4,6 +4,8 @@ This section outlines realistic IT projects that banks undertake, using the data
 
 ## Project 1: Customer 360 Analytics Platform
 
+## project2 
+
 ### Project Objectives
 - Develop a unified customer view by consolidating data from all banking channels.
 - Provide real-time analytics dashboards for customer insights.
