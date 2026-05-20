@@ -75,10 +75,22 @@ function createPageItem(page, route) {
   return {
     type: 'page',
     key: page.path ?? route,
-    title: page.title ?? titleFromSegment(getMenuPathSegments(page).at(-1) ?? 'Home'),
+    title: displayPageTitle(page),
     route,
     page,
   };
+}
+
+function displayPageTitle(page) {
+  if (looksLikeSourceFileTitle(page?.title)) {
+    return normalizeContentPath(page?.path ?? '').split('/').at(-1) ?? page.title;
+  }
+
+  return page?.title ?? titleFromSegment(getMenuPathSegments(page).at(-1) ?? 'Home');
+}
+
+function looksLikeSourceFileTitle(value) {
+  return /\.(?:py|js|jsx|ts|tsx|sql)$/i.test(String(value ?? '').trim());
 }
 
 function getMenuPathSegments(page) {

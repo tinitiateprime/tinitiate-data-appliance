@@ -4,33 +4,28 @@
 
 ```mermaid
 flowchart TD
-
-    A[Developer Updates Markdown Files]
-    B[banking-domain Folder]
-    C[GitHub Repository]
-    D[Docker Build Process]
-    E[Clone CMS Repository]
-    F[Clone Data Appliance Repository]
-    G[Copy banking-domain Content]
-    H[app banking-domain]
-    I[Run build local]
-    J[React CMS]
-    K[Browser UI]
-    L[User Views Updated Content]
+    A["Developer updates Markdown files"]
+    B["banking-domain folder"]
+    C["GitHub repository"]
+    D["Docker build process"]
+    E["Clone CMS repository"]
+    F["Clone data appliance repository"]
+    G["Copy banking-domain content"]
+    H["/app/banking-domain"]
+    I["Run npm run build:local"]
+    J["React CMS"]
+    K["Browser UI"]
+    L["User views updated content"]
 
     A --> B
     B --> C
     C --> D
-
     D --> E
     D --> F
-
     F --> G
     G --> H
-
     H --> I
     I --> J
-
     J --> K
     K --> L
 ```
@@ -41,22 +36,19 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-
-    A[GitHub Data Repository]
-    B[tinitiate-data-appliance]
-    C[banking-domain Folder]
-    D[Markdown Files]
-    E[JSON Data]
-    F[Images Assets]
-    G[React CMS]
+    A["GitHub data repository"]
+    B["tinitiate-data-appliance"]
+    C["banking-domain folder"]
+    D["Markdown files"]
+    E["JSON data"]
+    F["Image assets"]
+    G["React CMS"]
 
     A --> B
     B --> C
-
     C --> D
     C --> E
     C --> F
-
     D --> G
     E --> G
     F --> G
@@ -68,29 +60,34 @@ flowchart LR
 
 ```mermaid
 flowchart TD
+    A["Open banking-domain folder"]
+    B["Update Markdown files"]
+    C["Update JSON data"]
+    D["Update image assets"]
+    E["banking_overview.md"]
+    F["banking_home_loans.md"]
+    G["banking_it_projects.md"]
+    H["data folder"]
+    I["assets/images"]
+    J["Push changes to GitHub"]
+    K["Run Docker build again"]
+    L["Updated CMS UI"]
 
-    A[Open banking-domain Folder]
-
-    A --> B[Update Markdown Files]
-    A --> C[Update JSON Data]
-    A --> D[Update Images Assets]
-
-    B --> E[banking_overview md]
-    B --> F[banking_home_loans md]
-    B --> G[banking_it_projects md]
-
-    C --> H[data Folder]
-
-    D --> I[assets images]
-
-    E --> J[Push Changes To GitHub]
+    A --> B
+    A --> C
+    A --> D
+    B --> E
+    B --> F
+    B --> G
+    C --> H
+    D --> I
+    E --> J
     F --> J
     G --> J
     H --> J
     I --> J
-
-    J --> K[Run Docker Build Again]
-    K --> L[Updated CMS UI]
+    J --> K
+    K --> L
 ```
 
 ---
@@ -99,21 +96,24 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+    A["docker compose build"]
+    B["Install Git"]
+    C["Clone React CMS"]
+    D["Clone data appliance"]
+    E["Copy banking-domain"]
+    F["/app/banking-domain"]
+    G["Run npm ci"]
+    H["Run npm run build:local"]
+    I["Docker image ready"]
 
-    A[docker compose build]
-
-    A --> B[Install Git]
-    B --> C[Clone React CMS]
-
-    C --> D[Clone Data Appliance]
-
-    D --> E[Copy banking-domain]
-    E --> F[app banking-domain]
-
-    F --> G[Run npm ci]
-    G --> H[Run build local]
-
-    H --> I[Docker Image Ready]
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
 ```
 
 ---
@@ -122,13 +122,12 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-
-    A[Docker Container Starts]
-    B[React CMS Running]
-    C[Reads Public Content]
-    D[Loads Markdown Data]
-    E[Render UI Pages]
-    F[Browser]
+    A["Docker container starts"]
+    B["React CMS running"]
+    C["Reads public content"]
+    D["Loads Markdown data"]
+    E["Renders UI pages"]
+    F["Browser"]
 
     A --> B
     B --> C
@@ -143,19 +142,17 @@ flowchart LR
 
 ```mermaid
 flowchart TD
+    A["Update Markdown file"]
+    B["Push to GitHub"]
+    C["docker compose up"]
+    D["docker compose build --no-cache"]
+    E["New content pulled"]
+    F["Updated UI visible"]
+    X["Old image used"]
 
-    A[Update Markdown File]
-    B[Push To GitHub]
-    C[docker compose up]
-
-    D[docker compose build no cache]
-    E[New Content Pulled]
-    F[Updated UI Visible]
-
-    A --> B --> C
-
-    C --> X[Old Image Used]
-
+    A --> B
+    B --> C
+    C --> X
     B --> D
     D --> E
     E --> F
@@ -167,19 +164,22 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+    A["Edit banking_overview.md"]
+    B["Commit changes"]
+    C["Push to GitHub"]
+    D["docker compose build --pull --no-cache"]
+    E["docker compose up"]
+    F["Docker clones latest repo"]
+    G["Copies banking-domain"]
+    H["Build React CMS"]
+    I["Updated banking page visible"]
 
-    A[Edit banking_overview md]
-
-    A --> B[Commit Changes]
-    B --> C[Push To GitHub]
-
-    C --> D[docker compose build pull no cache]
-    D --> E[docker compose up]
-
-    E --> F[Docker Clones Latest Repo]
-
-    F --> G[Copies banking-domain]
-    G --> H[Build React CMS]
-
-    H --> I[Updated Banking Page Visible]
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
 ```

@@ -268,7 +268,8 @@ function parseMarkdownMeta(raw, filePath) {
     text: stripMarkdownInline(match[1].trim()),
     id: createUniqueHeadingId(match[1].trim(), headingIds),
   }));
-  const title = stringOrUndefined(frontmatter.title) ?? headings.find((heading) => heading.level === 1)?.text ?? titleFromPath(filePath);
+  const headingTitle = headings.find((heading) => heading.level === 1)?.text;
+  const title = stringOrUndefined(frontmatter.title) ?? displayTitleFromMarkdownPath(filePath, headingTitle);
   const order = numberOrUndefined(frontmatter.order);
   const hidden = booleanOrFalse(frontmatter.hidden);
   const layoutRole = getLayoutRole(filePath, frontmatter.layout);
@@ -376,6 +377,18 @@ function titleFromPath(filePath) {
   return name
     .replace(/[-_]+/g, ' ')
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function displayTitleFromMarkdownPath(filePath, headingTitle) {
+  if (looksLikeSourceFileTitle(headingTitle)) {
+    return path.posix.basename(normalizePath(filePath));
+  }
+
+  return headingTitle ?? titleFromPath(filePath);
+}
+
+function looksLikeSourceFileTitle(value) {
+  return /\.(?:py|js|jsx|ts|tsx|sql)$/i.test(String(value ?? '').trim());
 }
 
 function stripMarkdownInline(value) {
