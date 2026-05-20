@@ -344,17 +344,30 @@ function comparePages(a, b) {
 function routeFromMarkdownPath(filePath) {
   const parsed = path.posix.parse(normalizePath(filePath));
   const dir = parsed.dir === '.' ? '' : parsed.dir;
+  const routeDir = normalizeRouteDir(dir);
   const name = parsed.name.toLowerCase();
 
-  if (!dir && name === 'readme') {
+  if (!routeDir && name === 'readme') {
     return '/';
   }
 
   if (name === 'readme' || name === 'index') {
-    return `/${dir}`.replace(/\/+/g, '/') || '/';
+    return `/${routeDir}`.replace(/\/+/g, '/') || '/';
   }
 
-  return `/${path.posix.join(dir, parsed.name)}`.replace(/\/+/g, '/');
+  return `/${path.posix.join(routeDir, parsed.name)}`.replace(/\/+/g, '/');
+}
+
+function normalizeRouteDir(dir) {
+  const segments = normalizePath(dir).split('/').filter(Boolean);
+
+  if (segments[0]?.toLowerCase() === 'md') {
+    segments.shift();
+  }
+
+  return segments
+    .map((segment) => (segment.toLowerCase() === 'requriments' ? 'requirements' : segment))
+    .join('/');
 }
 
 function titleFromPath(filePath) {
@@ -369,7 +382,7 @@ function stripMarkdownInline(value) {
   return value
     .replace(/!\[([^\]]*)]\([^)]+\)/g, '$1')
     .replace(/\[([^\]]+)]\([^)]+\)/g, '$1')
-    .replace(/[*_`~#]/g, '')
+    .replace(/[*`~#]/g, '')
     .trim();
 }
 

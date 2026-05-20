@@ -71,6 +71,19 @@ export default function App() {
     setCurrentHeadings(initialPageHeadings);
   }, [initialPageHeadings]);
 
+  useEffect(() => {
+    if (!currentPage || !location.hash) {
+      return undefined;
+    }
+
+    const headingId = decodeHash(location.hash);
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(headingId)?.scrollIntoView({ block: 'start' });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [currentPage, currentHeadings, location.hash, location.pathname]);
+
   const handlePageHeadingsChange = useCallback((headings) => {
     setCurrentHeadings(headings);
   }, []);
@@ -141,7 +154,35 @@ export default function App() {
   );
 }
 
+function decodeHash(hash) {
+  try {
+    return decodeURIComponent(hash.slice(1));
+  } catch {
+    return hash.slice(1);
+  }
+}
+
 function PageOutline({ headings }) {
+  const handleOutlineClick = useCallback((event, headingId) => {
+    const target = document.getElementById(headingId);
+
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+    target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+
+    const encodedId = encodeURIComponent(headingId);
+    const nextUrl = `${window.location.pathname}${window.location.search}#${encodedId}`;
+
+    if (window.location.hash === `#${encodedId}`) {
+      window.history.replaceState(null, '', nextUrl);
+    } else {
+      window.history.pushState(null, '', nextUrl);
+    }
+  }, []);
+
   return (
     <aside className="page-outline" aria-label="Markdown outline">
       <nav className="page-outline-nav">
@@ -149,7 +190,9 @@ function PageOutline({ headings }) {
         <ol className="page-outline-list">
           {headings.map((heading) => (
             <li className={`page-outline-item page-outline-level-${heading.level}`} key={heading.id}>
-              <a href={`#${heading.id}`}>{heading.text}</a>
+              <a href={`#${heading.id}`} onClick={(event) => handleOutlineClick(event, heading.id)}>
+                {heading.text}
+              </a>
             </li>
           ))}
         </ol>

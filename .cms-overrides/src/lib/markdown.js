@@ -44,7 +44,7 @@ export function stripMarkdownInline(value) {
   return String(value ?? '')
     .replace(/!\[([^\]]*)]\([^)]+\)/g, '$1')
     .replace(/\[([^\]]+)]\([^)]+\)/g, '$1')
-    .replace(/[*_`~#]/g, '')
+    .replace(/[*`~#]/g, '')
     .trim();
 }
 

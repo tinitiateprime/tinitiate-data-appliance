@@ -99,7 +99,7 @@ export default function MarkdownPage({ className, page, pagePath, markdown, comp
   return (
     <article className={className}>
       {sections.map((section) => (
-        <section className="markdown-section" id={section.id} key={section.id}>
+        <section className="markdown-section" data-section-id={section.id} key={section.id}>
           <MarkdownRenderer markdown={section.markdown} pagePath={pagePath} headingIds={section.headingIds} />
         </section>
       ))}
